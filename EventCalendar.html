@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>  -->
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <!DOCTYPE html>
+    <button onclick="addEvent()">Add Event</button>
+    <button onclick="udpateEvent()">Update Event</button>
+    <button onclick="deleteEvent()">Delete Event</button>
+    <script>
+
+function addEvent(){
+  debugger;
+      alert('hello');
+        axios.post("https://localhost:7124/api/Events", {
+            "title": "בהצלחה לכולןןןןןןןןן מי כאן?? תכתבי לי אירוע",
+            "start": "2023-09-06"
+        }).then(res => {
+          alert('finish');
+           alert(res.data);
+        })
+}
+     function deleteEvent() {
+      debugger;
+      alert('hello');
+     axios.delete("https://localhost:7124/api/Events/16").then(res => {
+          alert('finish');
+        })
+
+    }
+    function udpateEvent(){
+      alert('hello');
+     axios.put("https://localhost:7124/api/Events/16", {
+            "title": "!!עדכנתי בהצלחה",
+            "start": "2023-09-05"
+        }).then(res => {
+          alert('finish');
+           alert(res.data);
+           refresh('EventCalendar.html');
+        })
+    }
+
+    </script>
+
+<html lang='en'>
+
+
+  <head>
+    <meta charset='utf-8' />
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
+    <script>
+
+      document.addEventListener('DOMContentLoaded', function() {
+        axios.get("https://localhost:7124/api/Events").then((res)=>{
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: 'dayGridMonth',
+          events:res.data,
+        });
+        calendar.render();
+      });
+      
+    
+      });
+
+    </script>
+  </head>
+  <body>
+    <div id='calendar'></div>
+  </body>
+</html>
+</body>
+</html>
